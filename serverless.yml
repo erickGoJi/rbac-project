@@ -1,0 +1,130 @@
+service: rbac-service
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: provided.al2
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  httpApi:
+    cors: true
+  apiGateway:
+    apiKeys:
+      - rbac-dev-key
+  tracing:
+    lambda: true
+    apiGateway: true
+  environment:
+    AUTH_MODE: api_key
+    INTERNAL_API_TOKEN: ${env:INTERNAL_API_TOKEN, ''}
+    TABLE_NAME: rbac-dev
+    COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
+    AWS_REGION: ${aws:region}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:Query
+            - dynamodb:DeleteItem
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/rbac-dev
+
+package:
+  artifact: bin/bootstrap.zip
+
+functions:
+  applications:
+    handler: bootstrap
+    environment:
+      LAMBDA_HANDLER: applications
+    events:
+      - httpApi:
+          method: POST
+          path: /applications
+          private: true
+      - httpApi:
+          method: PUT
+          path: /applications/{id}
+          private: true
+      - httpApi:
+          method: GET
+          path: /applications/{id}
+          private: true
+
+  roles:
+    handler: bootstrap
+    environment:
+      LAMBDA_HANDLER: roles
+    events:
+      - httpApi:
+          method: POST
+          path: /applications/{app_id}/roles
+          private: true
+      - httpApi:
+          method: PUT
+          path: /applications/{app_id}/roles/{role_id}
+          private: true
+      - httpApi:
+          method: GET
+          path: /applications/{app_id}/roles
+          private: true
+
+  permissions:
+    handler: bootstrap
+    environment:
+      LAMBDA_HANDLER: permissions
+    events:
+      - httpApi:
+          method: POST
+          path: /applications/{app_id}/permissions
+          private: true
+      - httpApi:
+          method: GET
+          path: /applications/{app_id}/permissions
+          private: true
+
+  users:
+    handler: bootstrap
+    environment:
+      LAMBDA_HANDLER: users
+    events:
+      - httpApi:
+          method: POST
+          path: /applications/{app_id}/users/{user_id}/roles
+          private: true
+      - httpApi:
+          method: GET
+          path: /applications/{app_id}/users/{user_id}
+          private: true
+
+  authorization:
+    handler: bootstrap
+    environment:
+      LAMBDA_HANDLER: authorization
+    events:
+      - httpApi:
+          method: POST
+          path: /authorize
+          private: true
+
+resources:
+  Resources:
+    RBACDynamoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: rbac-dev
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
