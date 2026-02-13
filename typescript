@@ -580,88 +580,316 @@ dwebp                          dynamic_pager
 [1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
 
 M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡1 [38;5;178m!5 [38;5;39m?8[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m······························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m06:31:23 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
-[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡1 [38;5;178m!5 [38;5;39m?8[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m········································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;208m cli-dev us-east-1[0m[38;5;208m[48;5;236m[48;5;236m[38;5;208m [0m[38;5;208m[48;5;236m[48;5;236m[38;5;208m [0m[38;5;208m[48;5;236m[48;5;236m[38;5;208m[0m[38;5;208m[48;5;236m[48;5;236m[38;5;66m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m06:28:06 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
-[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[32maws[39m sts get-caller-identity --profile cli-dev[K[91C[0m[49m[39m[38;5;240m─╯[39m
-[32mecho[39m [33m"[36m$AWS_ACCESS_KEY_ID[39m[33m"[39m | [32msed[39m [33m's/./*/g'[39m[K
-[K[?25h[K[?1l>[?2004l
-[JM[?25lMMMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32maws[39m sts get-caller-identity --profile cli-dev[K
-[32mecho[39m [33m"[36m$AWS_ACCESS_KEY_ID[39m[33m"[39m | [32msed[39m [33m's/./*/g'[39m[K
-[K[?25h[K
-kaws\[?1049h[50;1H[?1h={[m
-    "UserId": "AIDA5IEQ7EA23O2DZQVJV",[m
-    "Account": "910837096501",[m
-    "Arn": "arn:aws:iam::910837096501:user/cli-dev"[m
-}[m
-[7m(END)[27m[K[K[?1l>[?1049l********************
-[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
-
-M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡1 [38;5;178m!5 [38;5;39m?8[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m··················································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;248m [38;5;246mtook [0m[38;5;246m[48;5;236m[48;5;236m[38;5;248m9s[0m[38;5;248m[48;5;236m[48;5;236m[38;5;248m [0m[38;5;248m[48;5;236m[48;5;236m[38;5;248m [0m[38;5;248m[48;5;236m[48;5;236m[38;5;248m[0m[38;5;248m[48;5;236m[48;5;236m[38;5;66m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m06:28:22 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
-[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[1m[31me[0m[39m[1m[31me[0m[39m[90mxport AWS_PROFILE=cli-dev[39m
-[90mexport AWS_REGION=us-east-1[39m[K
-[K
-[90mexport AWS_ACCESS_KEY_ID="$(aws configure get aws_access_key_id --profile cli-dev)"[39m[K
-[90mexport AWS_SECRET_ACCESS_KEY="$(aws configure get aws_secret_access_key --profile cli-dev)"[39m[K
-[90mexport AWS_SESSION_TOKEN="$(aws configure get aws_session_token --profile cli-dev)"[39m[K[5A[80D[5B
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[32mg[39m[32mg[39m[90mo test ./...[39m[12D[32mg[32mo[39m
 [0;1;2mcommand[0m
-[0mecdh_curve25519   ecdsa            echo          echotc      echoti                ed         edit-command-line  edquota       egrep     
-elif              else             emulate       enable      enc_recon_frame_test  enc2xs     enc2xs5.34         encguess      encguess5.34
-encode_keychange  end              enum_options  env         env_default           envsubst   envvars            envvars-std   epmd      
-erb               erl              erlang_ls     erlc        errinfo               esac       escript            eslint_d      eslogger  
-eval              event_rpcgen.py  ex            exec        execsnoop             exit       expand             expect        export    
-expr              exr_to_pq        exr2aces      exrenvmap   exrheader             exrinfo    exrmakepreview     exrmaketiled  exrmanifest
-[Jexrmetrics        [Jexrmultipart     [Jexrmultiview  [Jexrstdattr  [Jeyapp                 [Jeyapp5.34  [J                                       [13A[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31me[0m[39m[90mxport AWS_PROFILE=cli-dev[39m[K[110C[0m[49m[39m[38;5;240m─╯[39m
-[90mexport AWS_REGION=us-east-1[39m[K
-[K
-[90mexport AWS_ACCESS_KEY_ID="$(aws configure get aws_access_key_id --profile cli-dev)"[39m[K
-[90mexport AWS_SECRET_ACCESS_KEY="$(aws configure get aws_secret_access_key --profile cli-dev)"[39m[K
-[90mexport AWS_SESSION_TOKEN="$(aws configure get aws_session_token --profile cli-dev)"[39m[K[0m[27m[24m[39m[49m[5A[80D[1m[31me[1m[31mc[0m[39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [1B[K[1B[K[1B[K[1B[K[1B[K[5A[4C[90mho $AWS_ACCESS_KEY_ID[39m[21D[1m[31me[1m[31mc[1m[31mh[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m[1B[J[0;1;2mcommand[0m
-[0mecho    echotc  echoti
-[J[0;2m[1mcommon substring:[0m [30m[103mecho[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mech[0m[39m[90mo $AWS_ACCESS_KEY_ID[39m[K[113C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[0m[32me[0m[32mc[0m[32mh[32mo[39m
-[J[0;1;2mcommand[0m
-[J[0mecho    [Jechotc  [Jechoti[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mecho[39m[90m $AWS_ACCESS_KEY_ID[39m[K[113C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[39m [39m$[39mA[39mW[39mS[39m_[39mA[39mC[39mC[39mE[39mS[39mS[39m_[39mK[39mE[39mY[39m_[39mI[39mD
-[J[0;1;2mparameter[0m
-[J[0mAWS_ACCESS_KEY_ID  -- AKIA5IEQ7EA2SBQ77O7X[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mecho[39m $AWS_ACCESS_KEY_ID[K[113C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[115D[?1l>[?2004l
-[JM[25C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32mecho[39m $AWS_ACCESS_KEY_ID[K[?25h
-kecho\AKIA5IEQ7EA2SBQ77O7X
+[0mgo         go-debug-adapter   gob    gobject-query  goc  god           goe   gof   gofa  gofmt  gofumpt  gofx  gog  goga  goi  
+goimports  goimports-reviser  gol    golangci-lint  gom  gomodifytags  gomt  gopa  gopb  gopls  gops     gor   got  gota  gotests
+[Jgoto       [Jgotoc              [Jgotod  [Jgotofx         [Jgov  [Jgove          [Jgow   [J                                    [4A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m[90m test ./...[39m[K[123C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[39m 
+[JM[5C[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+[J[0;1;2mgo tool commands[0m
+[0mbuild     -- compile packages and dependencies
+clean     -- remove object files
+doc       -- run godoc on package sources
+env       -- print Go environment information
+fix       -- run go tool fix on packages
+fmt       -- run gofmt on package sources
+generate  -- generate Go files by processing source
+get       -- download and install packages and dependencies
+help      -- display help
+install   -- compile and install packages and dependencies
+list      -- list packages
+mod       -- modules maintenance
+run       -- compile and run Go program
+test      -- test packages
+tool      -- run specified go tool
+[J[30m[104m(MORE)[39m[49m[17A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m [90mtest ./...[39m[K[123C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[39m[4mb[24m[39m [39m [39m [39m [39m [39m [39m [39m [39m [9D[90muild -o pomodoro[39m[16D
+[J[0;1;2mgo tool commands[0m
+[J[0mbuild  -- compile packages and dependencies[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m [4mb[24m[90muild -o pomodoro[39m[K[116C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[24mb[39mu
+[J[0;1;2mgo tool commands[0m
+[J[0mbuild  -- compile packages and dependencies[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m bu[90mild -o pomodoro[39m[K[116C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[39mi
+[J[0;1;2mgo tool commands[0m
+[J[0mbuild  -- compile packages and dependencies[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m bui[90mld -o pomodoro[39m[K[116C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[132D[39ml[39md[39m [39m-[39mo[39m [39mp[39mo[39mm[39mo[39md[39mo[39mr[39mo
+[JM[22C [90mo[39m [39m [90mro[39m [39m [39m [90moro[39m [39m [39m [39m [90mdoro[39m [39m [39m [39m [39m [90modoro[39m [39m [39m [39m [39m [39m [90mmodoro[39m [39m [39m [39m [39m [39m [39m [90momodoro[39m
+[J[0;1;2mfile[0m
+[J[0mtypescript[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m build -o p[90momodoro[39m[K[116C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[125D [39m [39m [39m [39m [39m [39m [39m [8D[90mpomodoro[39m[8D
+[J[0;1;2mdirectory[0m
+[1;31mbin[0m/                     [1;31mcmd[0m/                     [1;31minfrastructure[0m/          [1;31minternal[0m/                [1;31mtests[0m/                 
+[0;1;2mfile[0m
+[J[0mcoverage.out  [JDockerfile  [Jgo.mod  [Jgo.sum  [JMakefile  [JREADME.md  [Jserverless.yml  [J[1;32msmoke-ecs.sh[0m*  [Jsmoke.md  [J[1;32msmoke.sh[0m*  [Jtypescript  [J[4A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m build -o [90mpomodoro[39m[K[116C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[126D[39m[4mb[24m[39m [39m [39m [39m [39m [39m [39m [90moactl ./cmd/boactl/[39m[19D
+[J[0;1;2mdirectory[0m
+[J[1;31mbin[0m/[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m build -o [4mb[24m[90moactl ./cmd/boactl/[39m[K[104C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[125D[24mb[39mo
+[JM[16C[39mo[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [17Dtstrap[?1l>[?2004l
+[JM[23C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32mgo[39m build -o bootstrap[K[?25h
+kgo\no Go files in /Users/erickeduardogomezjimenez/projects/rbac-project
 [1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
 
-M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡1 [38;5;178m!5 [38;5;39m?8[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m······························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m06:28:56 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
-[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[32md[39m[32md[39m[90mocker ls[39m[8D[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!9 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m······························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:00:26 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;196m❯[0m[38;5;196m[49m[38;5;196m[0m[38;5;196m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[32mg[39m[32mg[39m[90mo build -o bootstrap[39m[20D[32mg[32mo[39m
 [0;1;2mcommand[0m
-[0mdanetool                       dapptrace          dash          date          dav1d          dawg2wordlist       db_checkpoint          
-db_codegen                     db_deadlock        db_dump       db_hotbackup  db_load        db_printlog         db_recover             
-db_stat                        db_upgrade         db_verify     dbicadmin     dbicadmin5.34  dbilogstrip         dbilogstrip5.34        
-dbiprof                        dbiprof5.34        dbiproxy      dbmmanage     dc             dd                  dddiagnose             
-debugpy                        defaults           demandoc      desdp         dev_mkdb       devicectl           DevToolsSecurity       
-df                             dh_server          diagnose-fu   diff          diff3          disklabel           dispqlen.d             
-dist_package_tool              distnoted          ditto         djpeg         djxl           djxl_fuzzer_corpus  dlv                    
-dmc                            dmesg              dnctl         dns-sd        docker         docker-compose      docker-credential-desktop
-docker-credential-osxkeychain  docker-langserver  dot_clean     dotnet        drutil         dscl                dsconfigad             
-dsconfigldap                   dseditgroup        dsenableroot  dserr         dsimport       dsmemberutil        dsymutil               
-dtls_client                    dtls_server        dtrace        dtruss        du             dvd2concat          dwarfdump              
-dwebp                          dynamic_pager                                                                                    
-[J[30m[104m(MORE)[39m[49m[14A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32md[39m[90mocker ls[39m[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[137D[33md[33mo[39m
-[J[0;1;2mcommand[0m
-[0mdo         docker  docker-compose                 docker-credential-desktop  docker-credential-osxkeychain  docker-langserver  done
-[Jdot_clean  [Jdotnet  [Jdown-line-or-beginning-search  [J                                                                         MMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[33mdo[39m[90mcker ls[39m[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[1m[31md[1m[31mo[1m[31mc[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m
-[J[0;1;2mcommand[0m
-[0mdocker   docker-compose   docker-credential-desktop   docker-credential-osxkeychain   docker-langserver   
-[J[0;2m[1mcommon substring:[0m [30m[103mdocker[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mdoc[0m[39m[90mker ls[39m[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[1m[31mc[1m[31mk[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m
-[J[0;1;2mcommand[0m
-[0mdocker   docker-compose   docker-credential-desktop   docker-credential-osxkeychain   docker-langserver   
-[J[0;2m[1mcommon substring:[0m [30m[103mdocker[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mdock[0m[39m[90mer ls[39m[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[1m[31mk[1m[31me[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m
-[J[0;1;2mcommand[0m
-[0mdocker   docker-compose   docker-credential-desktop   docker-credential-osxkeychain   docker-langserver   
-[J[0;2m[1mcommon substring:[0m [30m[103mdocker[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mdocke[0m[39m[90mr ls[39m[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[0m[32md[0m[32mo[0m[32mc[0m[32mk[0m[32me[32mr[39m
-[J[0;1;2mcommand[0m
-[J[0mdocker   [Jdocker-compose   [Jdocker-credential-desktop   [Jdocker-credential-osxkeychain   [Jdocker-langserver   [JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mdocker[39m[90m ls[39m[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[132D[39m 
-[JM[9C[39mp[39m [90ms[39m[39ms
-[J[0;1;2mcompletions[0m
-[J[0mps  -- List containers[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mdocker[39m ps[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[129D[?1l>[?2004l
-[JM[11C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32mdocker[39m ps[K[?25h
-kdocker\CONTAINER ID   IMAGE                 COMMAND           CREATED         STATUS         PORTS                                         NAMES
-48ee645803c7   rbac-service:latest   "/rbac-service"   2 minutes ago   Up 2 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   thirsty_archimedes
+[0mgo         go-debug-adapter   gob    gobject-query  goc  god           goe   gof   gofa  gofmt  gofumpt  gofx  gog  goga  goi  
+goimports  goimports-reviser  gol    golangci-lint  gom  gomodifytags  gomt  gopa  gopb  gopls  gops     gor   got  gota  gotests
+[Jgoto       [Jgotoc              [Jgotod  [Jgotofx         [Jgov  [Jgove          [Jgow   [J                                    [4A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m[90m build -o bootstrap[39m[K[115C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[39m 
+[JM[5C[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+[J[0;1;2mgo tool commands[0m
+[0mbuild     -- compile packages and dependencies
+clean     -- remove object files
+doc       -- run godoc on package sources
+env       -- print Go environment information
+fix       -- run go tool fix on packages
+fmt       -- run gofmt on package sources
+generate  -- generate Go files by processing source
+get       -- download and install packages and dependencies
+help      -- display help
+install   -- compile and install packages and dependencies
+list      -- list packages
+mod       -- modules maintenance
+run       -- compile and run Go program
+test      -- test packages
+tool      -- run specified go tool
+[J[30m[104m(MORE)[39m[49m[17A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m [90mbuild -o bootstrap[39m[K[115C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[39mm[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [17D[90mod init github.com/erickGoJi/calculator-go[39m[42D
+[J[0;1;2mgo tool commands[0m
+[J[0mmod  -- modules maintenance[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m m[90mod init github.com/erickGoJi/calculator-go[39m[K[90C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[39mo
+[J[0;1;2mgo tool commands[0m
+[J[0mmod  -- modules maintenance[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mo[90md init github.com/erickGoJi/calculator-go[39m[K[90C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[39md
+[J[0;1;2mgo tool commands[0m
+[J[0mmod  -- modules maintenance[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod[90m init github.com/erickGoJi/calculator-go[39m[K[90C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[132D[39m 
+[JM[9C
+[J[0;1;2mgo mod commands[0m
+[0mdownload  -- download modules to local cache
+edit      -- edit go.mod from tools or scripts
+graph     -- print module requirement graph
+help      -- display help
+init      -- initialize new module in current directory
+tidy      -- add missing and remove unused modules
+vendor    -- make vendored copy of dependencies
+verify    -- verify dependencies have expected content
+[Jwhy       -- explain why packages or modules are needed[J[10A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod [90minit github.com/erickGoJi/calculator-go[39m[K[90C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[131D[39md[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [38D
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod d[K[128C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[130Do
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod do[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[129De
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod doe[K[126C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[128Dn
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod doen[K[125C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[127D 
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod doe[K[126C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[128D 
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod do[K[127C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[129Dw
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod dow[K[126C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[128Dn
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod down[K[125C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[127Dl
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod downl[K[124C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[126Do
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod downlo[K[123C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[125Da
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod downloa[K[122C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[124Dd
+[J[0;1;2mgo mod commands[0m
+[J[0mdownload  -- download modules to local cache[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod download[K[121C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[123D[?1l>[?2004l
+[JM[17C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;196m❯[0m[38;5;196m[49m[39m[27m[24m [32mgo[39m mod download[K[?25h
+kgo\[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!9 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m······························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:00:44 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[32mg[39m[32mg[39m[90mo mod download[39m[14D[32mg[32mo[39m
+[0;1;2mcommand[0m
+[0mgo         go-debug-adapter   gob    gobject-query  goc  god           goe   gof   gofa  gofmt  gofumpt  gofx  gog  goga  goi  
+goimports  goimports-reviser  gol    golangci-lint  gom  gomodifytags  gomt  gopa  gopb  gopls  gops     gor   got  gota  gotests
+[Jgoto       [Jgotoc              [Jgotod  [Jgotofx         [Jgov  [Jgove          [Jgow   [J                                    [4A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m[90m mod download[39m[K[121C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[39m 
+[JM[5C[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+[J[0;1;2mgo tool commands[0m
+[0mbuild     -- compile packages and dependencies
+clean     -- remove object files
+doc       -- run godoc on package sources
+env       -- print Go environment information
+fix       -- run go tool fix on packages
+fmt       -- run gofmt on package sources
+generate  -- generate Go files by processing source
+get       -- download and install packages and dependencies
+help      -- display help
+install   -- compile and install packages and dependencies
+list      -- list packages
+mod       -- modules maintenance
+run       -- compile and run Go program
+test      -- test packages
+tool      -- run specified go tool
+[J[30m[104m(MORE)[39m[49m[17A[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m [90mmod download[39m[K[121C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[39mm
+[J[0;1;2mgo tool commands[0m
+[J[0mmod  -- modules maintenance[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m m[90mod download[39m[K[121C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[39mo
+[J[0;1;2mgo tool commands[0m
+[J[0mmod  -- modules maintenance[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mo[90md download[39m[K[121C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[39md
+[J[0;1;2mgo tool commands[0m
+[J[0mmod  -- modules maintenance[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mgo[39m mod[90m download[39m[K[121C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[132D[39m [39m [39m [39m [39m [39m [39m [39m [39m [9D[?1l>[?2004l
+[JM[8C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32mgo[39m mod[K[?25h
+kgo\Go mod provides access to operations on modules.
+
+Note that support for modules is built into all the go commands,
+not just 'go mod'. For example, day-to-day adding, removing, upgrading,
+and downgrading of dependencies should be done using 'go get'.
+See 'go help modules' for an overview of module functionality.
+
+Usage:
+
+	go mod <command> [arguments]
+
+The commands are:
+
+	download    download modules to local cache
+	edit        edit go.mod from tools or scripts
+	graph       print module requirement graph
+	init        initialize new module in current directory
+	tidy        add missing and remove unused modules
+	vendor      make vendored copy of dependencies
+	verify      verify dependencies have expected content
+	why         explain why packages or modules are needed
+
+Use "go help mod <command>" for more information about a command.
+
 [1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
 
-M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡1 [38;5;178m!5 [38;5;39m?8[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m······························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m06:31:23 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!9 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m······························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:00:47 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;196m❯[0m[38;5;196m[49m[38;5;196m[0m[38;5;196m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[4mc[24m[4mc[24m[90mlear[39m[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+[0;1;2mcommand[0m
+[0mc_rehash       c++filt            c89               c99            caffeinate            cairo-trace          cal           
+calendar       cancel             cap_mkdb          cat            cc                    cd                   cdk           
+cert_app       cert_req           cert_write        certtool       cfprefsd              chat                 checkgid      
+chflags        chfn               chgrp             chmod          chsh                  cipher_aead_demo     cjpeg         
+cjxl           cksum              clang             clangd         classifier_tester     clean-diff           cmp           
+cmpdylib       cntraining         code-tunnel       codesign       codesign_allocate     codex                col           
+colrm          column             combine_tessdata  comm           command               compress             compression_tool
+config_data    convertfilestopdf  convertfilestops  convertformat  convertsegfilestopdf  convertsegfilestops  converttops   
+copilot        coreaudiod         corelist5.34      corepack       cp                    cpan                 cpio          
+cpp            cpu_profiler.d     cpuctl            cpuwalk.d      crc32                 crc325.34            creatbyproc.d 
+createhomedir  crl_app            cron              crontab        crypt_and_hash        csfdiagnose          csh           
+csplit         csreq              ct_run            ctags          ctf_insert            cu                   cups-config   
+cupsaccept     cupsctl            cupsd             cupsdisable    cupsenable            cupsfilter           cupsreject    
+cupstestppd    curl               curl-config       curve_keygen   cut                   cvadmin              cvaffinity    
+cvcp           cvdb               cvdbset           cvfsck         cvfsdb                cvfsid               cvgather      
+cvlabel        cvmkdir            cvmkfile          cvmkfs         cvversions            cws2fws                            
+[J[30m[104m(MORE)[39m[49m[18A[0m[27m[24m[0m[27m[24m[39m[49m[2C[4mc[24m[90mlear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[137D[24m[1m[31mc[1m[31ml[0m[39m
+[J[0;1;2mcommand[0m
+[J[0mclang     [Jclang++     [Jclangd     [Jclassifier_tester     [Jclean-diff     [Jclear     [Jclipcopy     [Jclippaste     [J       MM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mcl[0m[39m[90mear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[1m[31mc[1m[31ml[1m[31me[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m
+[J[0;1;2mcommand[0m
+[0mclean-diff  clear     
+[J[0;2m[1mcommon substring:[0m [30m[103mclea[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mcle[0m[39m[90mar[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[1m[31me[1m[31ma[0m[39m
+[J[0;1;2mcommand[0m
+[J[0mclean-diff  [Jclear     [JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mclea[0m[39m[90mr[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[0m[32mc[0m[32ml[0m[32me[0m[32ma[32mr[39m
+[J[0;1;2mcommand[0m
+[J[0mclear[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mclear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[?1l>[?2004l
+[JM[7C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;196m❯[0m[38;5;196m[49m[39m[27m[24m [32mclear[39m[K[?25h
+kclear\[H[J[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:29 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:31 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:31 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:32 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:32 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:32 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[4mc[24m[4mc[24m[90mlear[39m[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+[0;1;2mcommand[0m
+[0mc_rehash       c++filt            c89               c99            caffeinate            cairo-trace          cal           
+calendar       cancel             cap_mkdb          cat            cc                    cd                   cdk           
+cert_app       cert_req           cert_write        certtool       cfprefsd              chat                 checkgid      
+chflags        chfn               chgrp             chmod          chsh                  cipher_aead_demo     cjpeg         
+cjxl           cksum              clang             clangd         classifier_tester     clean-diff           cmp           
+cmpdylib       cntraining         code-tunnel       codesign       codesign_allocate     codex                col           
+colrm          column             combine_tessdata  comm           command               compress             compression_tool
+config_data    convertfilestopdf  convertfilestops  convertformat  convertsegfilestopdf  convertsegfilestops  converttops   
+copilot        coreaudiod         corelist5.34      corepack       cp                    cpan                 cpio          
+cpp            cpu_profiler.d     cpuctl            cpuwalk.d      crc32                 crc325.34            creatbyproc.d 
+createhomedir  crl_app            cron              crontab        crypt_and_hash        csfdiagnose          csh           
+csplit         csreq              ct_run            ctags          ctf_insert            cu                   cups-config   
+cupsaccept     cupsctl            cupsd             cupsdisable    cupsenable            cupsfilter           cupsreject    
+cupstestppd    curl               curl-config       curve_keygen   cut                   cvadmin              cvaffinity    
+cvcp           cvdb               cvdbset           cvfsck         cvfsdb                cvfsid               cvgather      
+cvlabel        cvmkdir            cvmkfile          cvmkfs         cvversions            cws2fws                            
+[J[30m[104m(MORE)[39m[49m[18A[0m[27m[24m[0m[27m[24m[39m[49m[2C[4mc[24m[90mlear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[137D[24m[1m[31mc[1m[31ml[0m[39m
+[J[0;1;2mcommand[0m
+[J[0mclang     [Jclang++     [Jclangd     [Jclassifier_tester     [Jclean-diff     [Jclear     [Jclipcopy     [Jclippaste     [J       MM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mcl[0m[39m[90mear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[1m[31mc[1m[31ml[1m[31me[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m
+[J[0;1;2mcommand[0m
+[0mclean-diff  clear     
+[J[0;2m[1mcommon substring:[0m [30m[103mclea[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mcle[0m[39m[90mar[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[1m[31me[1m[31ma[0m[39m
+[J[0;1;2mcommand[0m
+[J[0mclean-diff  [Jclear     [JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mclea[0m[39m[90mr[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[0m[32mc[0m[32ml[0m[32me[0m[32ma[32mr[39m
+[J[0;1;2mcommand[0m
+[J[0mclear[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mclear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[?1l>[?2004l
+[JM[7C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32mclear[39m[K[?25h
+kclear\[H[J[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;2331m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:29 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:31 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:31 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:32 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:32 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[?1l>[?2004l
+[JM[2C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [K[?25h
+[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:32 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
+[0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h[4mc[24m[4mc[24m[90mlear[39m[30m[104m[39m[49m[30m[104m[39m[49m[30m[104m[39m[49m
+[0;1;2mcommand[0m
+[0mc_rehash       c++filt            c89               c99            caffeinate            cairo-trace          cal           
+calendar       cancel             cap_mkdb          cat            cc                    cd                   cdk           
+cert_app       cert_req           cert_write        certtool       cfprefsd              chat                 checkgid      
+chflags        chfn               chgrp             chmod          chsh                  cipher_aead_demo     cjpeg         
+cjxl           cksum              clang             clangd         classifier_tester     clean-diff           cmp           
+cmpdylib       cntraining         code-tunnel       codesign       codesign_allocate     codex                col           
+colrm          column             combine_tessdata  comm           command               compress             compression_tool
+config_data    convertfilestopdf  convertfilestops  convertformat  convertsegfilestopdf  convertsegfilestops  converttops   
+copilot        coreaudiod         corelist5.34      corepack       cp                    cpan                 cpio          
+cpp            cpu_profiler.d     cpuctl            cpuwalk.d      crc32                 crc325.34            creatbyproc.d 
+createhomedir  crl_app            cron              crontab        crypt_and_hash        csfdiagnose          csh           
+csplit         csreq              ct_run            ctags          ctf_insert            cu                   cups-config   
+cupsaccept     cupsctl            cupsd             cupsdisable    cupsenable            cupsfilter           cupsreject    
+cupstestppd    curl               curl-config       curve_keygen   cut                   cvadmin              cvaffinity    
+cvcp           cvdb               cvdbset           cvfsck         cvfsdb                cvfsid               cvgather      
+cvlabel        cvmkdir            cvmkfile          cvmkfs         cvversions            cws2fws                            
+[J[30m[104m(MORE)[39m[49m[18A[0m[27m[24m[0m[27m[24m[39m[49m[2C[4mc[24m[90mlear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[137D[24m[1m[31mc[1m[31ml[0m[39m
+[J[0;1;2mcommand[0m
+[J[0mclang     [Jclang++     [Jclangd     [Jclassifier_tester     [Jclean-diff     [Jclear     [Jclipcopy     [Jclippaste     [J       MM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mcl[0m[39m[90mear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[136D[1m[31mc[1m[31ml[1m[31me[0m[39m[30m[103m[39m[49m[30m[103m[39m[49m
+[J[0;1;2mcommand[0m
+[0mclean-diff  clear     
+[J[0;2m[1mcommon substring:[0m [30m[103mclea[39m[49mMMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mcle[0m[39m[90mar[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[135D[1m[31me[1m[31ma[0m[39m
+[J[0;1;2mcommand[0m
+[J[0mclean-diff  [Jclear     [JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[1m[31mclea[0m[39m[90mr[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[134D[0m[32mc[0m[32ml[0m[32me[0m[32ma[32mr[39m
+[J[0;1;2mcommand[0m
+[J[0mclear[JMM[0m[27m[24m[0m[27m[24m[39m[49m[2C[32mclear[39m[K[131C[0m[49m[39m[38;5;240m─╯[39m[0m[27m[24m[39m[49m[133D[?1l>[?2004l
+[JM[7C[?25lMM[0m[27m[24m[J[0m[49m[27m[24m[38;5;76m❯[0m[38;5;76m[49m[39m[27m[24m [32mclear[39m[K[?25h
+kclear\[H[J[1m[7m%[27m[1m[0m                                                                                                                                             k../rbac-project\]7;file://MacBook-Pro-de-Erick.local/Users/erickeduardogomezjimenez/projects/rbac-project\[0m[27m[24m[J[0m[38;5;240m[49m[39m
+M[0m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;255m [0m[38;5;255m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;31m  [1m[38;5;31m[48;5;236m[38;5;39m~[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m/projects/[1m[38;5;31m[48;5;236m[38;5;39mrbac-project[0m[38;5;39m[48;5;236m[48;5;236m[38;5;31m[0m[38;5;31m[48;5;236m[48;5;236m[38;5;31m [0m[38;5;31m[48;5;236m[48;5;236m[38;5;244m[0m[38;5;244m[48;5;236m[48;5;236m[38;5;178m [38;5;246mon [0m[38;5;246m[48;5;236m[48;5;236m[38;5;76m[0m[38;5;76m[48;5;236m[48;5;236m[38;5;178m [38;5;76m main [38;5;76m⇡2 [38;5;178m!10 [38;5;39m?5[0m[38;5;39m[48;5;236m[48;5;236m[38;5;178m [0m[38;5;178m[48;5;236m[49m[38;5;236m[0m[38;5;236m[49m[39m[38;5;240m·····························································[0m[38;5;240m[49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m [38;5;246mat [0m[38;5;246m[48;5;236m[48;5;236m[38;5;66m07:06:34 AM[0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [0m[38;5;66m[48;5;236m[48;5;236m[38;5;66m [49m[38;5;236m[0m[38;5;236m[48;5;236m[38;5;66m[0m[38;5;66m[48;5;236m[49m[39m[38;5;240m─╮
 [0m[38;5;240m[49m[39m[0m[49m[38;5;76m❯[0m[38;5;76m[49m[38;5;76m[0m[38;5;76m[49m[30m[0m[30m[49m[39m [0m[49m[39m[K[136C[0m[49m[39m[38;5;240m─╯[39m[138D[?2004h

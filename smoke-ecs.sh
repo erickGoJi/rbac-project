@@ -6,7 +6,7 @@ if [[ -z "${API_URL:-}" ]]; then
   exit 1
 fi
 
-BASE_PATH=${BASE_PATH:-/dev}
+BASE_PATH=${BASE_PATH:-}
 if [[ "${BASE_PATH}" == "/" ]]; then
   BASE_PATH=""
 fi

@@ -1,0 +1,7 @@
+# Serverless artifacts
+.serverless/
+**/.serverless/
+
+# Node dependencies
+node_modules/
+**/node_modules/

@@ -17,7 +17,7 @@ export API_URL=<http_api_endpoint>
 ## Common optional variables
 
 ```bash
-export BASE_PATH=/dev
+export BASE_PATH=
 export API_KEY=<optional_api_key>
 export JWT=<optional_jwt>
 export APP_ID=app-ecs-1
@@ -52,6 +52,6 @@ export EXPECT_WRITE_ALLOWED=false
 
 ## Notes
 
-- If your API endpoint already includes `/dev`, set `BASE_PATH=` (empty).
+- If you use a non-default stage path, set it explicitly (example: `BASE_PATH=/dev`).
 - If `AUTH_MODE=none`, API key and JWT are not required.
 - If `AUTHORIZE_TEST_MODE=true`, set both expected values to `true`.

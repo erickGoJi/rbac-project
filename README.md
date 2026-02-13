@@ -98,7 +98,7 @@ serverless deploy
 
 ### Build/push container image
 ```bash
-make ecr-release AWS_REGION=us-east-1 AWS_ACCOUNT_ID=<account_id> IMAGE_TAG=latest
+make ecr-release AWS_REGION=us-east-1 AWS_ACCOUNT_ID=<account_id> IMAGE_TAG=latest DOCKER_PLATFORM=linux/arm64
 ```
 
 ## AWS components created by compose stacks
@@ -118,6 +118,17 @@ make ecr-release AWS_REGION=us-east-1 AWS_ACCOUNT_ID=<account_id> IMAGE_TAG=late
 - App initializes X-Ray in `cmd/bootstrap/main.go`.
 - ECS task definition includes an X-Ray daemon sidecar.
 
+## Structured Logging
+
+- Logging uses `log/slog` with JSON output through the adapter in `internal/adapters/logger/slog_logger.go`.
+- The logger enriches records with `trace_id` when an X-Ray segment is present in request context.
+- HTTP requests are logged via middleware with fields:
+  - `method`
+  - `path`
+  - `status`
+  - `duration`
+- This format is CloudWatch-friendly and allows request-to-trace correlation in ECS.
+
 ## Tests
 
 Existing domain/application tests remain unchanged.
@@ -130,7 +141,7 @@ make test
 
 ```bash
 export API_URL=<http_api_endpoint>
-export BASE_PATH=/dev
+export BASE_PATH=
 export API_KEY=<optional_api_key>
 export JWT=<optional_jwt>
 ./smoke-ecs.sh

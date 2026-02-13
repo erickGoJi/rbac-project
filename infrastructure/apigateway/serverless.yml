@@ -68,12 +68,12 @@ resources:
       Type: AWS::ApiGatewayV2::Stage
       Properties:
         ApiId: !Ref HttpApi
-        StageName: dev
+        StageName: '$default'
         AutoDeploy: true
 
   Outputs:
     HttpApiUrl:
-      Value: !Sub https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com/dev
+      Value: !Sub https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com
       Export:
         Name: rbac-dev-apigateway-HttpApiUrl
     AlbArn:

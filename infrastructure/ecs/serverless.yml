@@ -72,6 +72,9 @@ resources:
         Family: rbac-dev-service
         Cpu: '512'
         Memory: '1024'
+        RuntimePlatform:
+          CpuArchitecture: ARM64
+          OperatingSystemFamily: LINUX
         NetworkMode: awsvpc
         RequiresCompatibilities:
           - FARGATE

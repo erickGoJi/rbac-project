@@ -2,29 +2,31 @@ package dynamodb
 
 import (
 	"context"
-	"strings"
+	"errors"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	db "github.com/aws/aws-sdk-go/service/dynamodb"
-	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
+	awsv2dynamodb "github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	awsv2types "github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+	awsv2xray "github.com/aws/aws-xray-sdk-go/instrumentation/awsv2"
 	"github.com/aws/aws-xray-sdk-go/xray"
 	"rbac-project/internal/domain"
 )
 
 type Client struct {
-	db        *db.DynamoDB
+	db        *awsv2dynamodb.Client
 	tableName string
 }
 
-func NewClient(region, tableName string) (*Client, error) {
-	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})
+func NewClient(ctx context.Context, region, tableName string) (*Client, error) {
+	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(region))
 	if err != nil {
 		return nil, err
 	}
-	client := db.New(sess)
-	xray.AWS(client.Client)
+	awsv2xray.AWSV2Instrumentor(&cfg.APIOptions)
+	client := awsv2dynamodb.NewFromConfig(cfg)
 	return &Client{db: client, tableName: tableName}, nil
 }
 
@@ -36,10 +38,8 @@ func userPK(userID string) string   { return "USER#" + userID }
 func userAppSK(appID string) string { return "APP#" + appID }
 
 func isConditionalCheckFailure(err error) bool {
-	if err == nil {
-		return false
-	}
-	return strings.Contains(err.Error(), "ConditionalCheckFailedException")
+	var condErr *awsv2types.ConditionalCheckFailedException
+	return errors.As(err, &condErr)
 }
 
 type ApplicationRepository struct{ client *Client }
@@ -67,7 +67,7 @@ func NewUserRoleRepository(client *Client) *UserRoleRepository {
 }
 
 func (r *ApplicationRepository) Create(ctx context.Context, app domain.Application) error {
-	item := map[string]interface{}{
+	item := map[string]any{
 		"PK":          appPK(app.ID),
 		"SK":          appMetaSK(),
 		"EntityType":  "APPLICATION",
@@ -77,12 +77,12 @@ func (r *ApplicationRepository) Create(ctx context.Context, app domain.Applicati
 		"CreatedAt":   app.CreatedAt.Format(time.RFC3339),
 		"UpdatedAt":   app.UpdatedAt.Format(time.RFC3339),
 	}
-	av, err := dynamodbattribute.MarshalMap(item)
+	av, err := attributevalue.MarshalMap(item)
 	if err != nil {
 		return err
 	}
 	return xray.Capture(ctx, "DynamoDB.PutApplication", func(ctx context.Context) error {
-		_, err = r.client.db.PutItemWithContext(ctx, &db.PutItemInput{
+		_, err = r.client.db.PutItem(ctx, &awsv2dynamodb.PutItemInput{
 			TableName:           aws.String(r.client.tableName),
 			Item:                av,
 			ConditionExpression: aws.String("attribute_not_exists(PK) AND attribute_not_exists(SK)"),
@@ -93,21 +93,21 @@ func (r *ApplicationRepository) Create(ctx context.Context, app domain.Applicati
 
 func (r *ApplicationRepository) Update(ctx context.Context, app domain.Application) error {
 	return xray.Capture(ctx, "DynamoDB.UpdateApplication", func(ctx context.Context) error {
-		_, err := r.client.db.UpdateItemWithContext(ctx, &db.UpdateItemInput{
+		_, err := r.client.db.UpdateItem(ctx, &awsv2dynamodb.UpdateItemInput{
 			TableName: aws.String(r.client.tableName),
-			Key: map[string]*db.AttributeValue{
-				"PK": {S: aws.String(appPK(app.ID))},
-				"SK": {S: aws.String(appMetaSK())},
+			Key: map[string]awsv2types.AttributeValue{
+				"PK": &awsv2types.AttributeValueMemberS{Value: appPK(app.ID)},
+				"SK": &awsv2types.AttributeValueMemberS{Value: appMetaSK()},
 			},
 			UpdateExpression: aws.String("SET #n = :n, #d = :d, UpdatedAt = :u"),
-			ExpressionAttributeNames: map[string]*string{
-				"#n": aws.String("Name"),
-				"#d": aws.String("Description"),
+			ExpressionAttributeNames: map[string]string{
+				"#n": "Name",
+				"#d": "Description",
 			},
-			ExpressionAttributeValues: map[string]*db.AttributeValue{
-				":n": {S: aws.String(app.Name)},
-				":d": {S: aws.String(app.Description)},
-				":u": {S: aws.String(app.UpdatedAt.Format(time.RFC3339))},
+			ExpressionAttributeValues: map[string]awsv2types.AttributeValue{
+				":n": &awsv2types.AttributeValueMemberS{Value: app.Name},
+				":d": &awsv2types.AttributeValueMemberS{Value: app.Description},
+				":u": &awsv2types.AttributeValueMemberS{Value: app.UpdatedAt.Format(time.RFC3339)},
 			},
 			ConditionExpression: aws.String("attribute_exists(PK)"),
 		})
@@ -119,14 +119,14 @@ func (r *ApplicationRepository) Update(ctx context.Context, app domain.Applicati
 }
 
 func (r *ApplicationRepository) GetByID(ctx context.Context, appID string) (domain.Application, error) {
-	var out *db.GetItemOutput
+	var out *awsv2dynamodb.GetItemOutput
 	err := xray.Capture(ctx, "DynamoDB.GetApplication", func(ctx context.Context) error {
 		var e error
-		out, e = r.client.db.GetItemWithContext(ctx, &db.GetItemInput{
+		out, e = r.client.db.GetItem(ctx, &awsv2dynamodb.GetItemInput{
 			TableName: aws.String(r.client.tableName),
-			Key: map[string]*db.AttributeValue{
-				"PK": {S: aws.String(appPK(appID))},
-				"SK": {S: aws.String(appMetaSK())},
+			Key: map[string]awsv2types.AttributeValue{
+				"PK": &awsv2types.AttributeValueMemberS{Value: appPK(appID)},
+				"SK": &awsv2types.AttributeValueMemberS{Value: appMetaSK()},
 			},
 		})
 		return e
@@ -144,7 +144,7 @@ func (r *ApplicationRepository) GetByID(ctx context.Context, appID string) (doma
 		CreatedAt   string `dynamodbav:"CreatedAt"`
 		UpdatedAt   string `dynamodbav:"UpdatedAt"`
 	}{}
-	if err := dynamodbattribute.UnmarshalMap(out.Item, &raw); err != nil {
+	if err := attributevalue.UnmarshalMap(out.Item, &raw); err != nil {
 		return domain.Application{}, err
 	}
 	createdAt, _ := time.Parse(time.RFC3339, raw.CreatedAt)
@@ -153,7 +153,7 @@ func (r *ApplicationRepository) GetByID(ctx context.Context, appID string) (doma
 }
 
 func (r *RoleRepository) Create(ctx context.Context, role domain.Role) error {
-	item := map[string]interface{}{
+	item := map[string]any{
 		"PK":          appPK(role.AppID),
 		"SK":          roleSK(role.ID),
 		"EntityType":  "ROLE",
@@ -163,12 +163,12 @@ func (r *RoleRepository) Create(ctx context.Context, role domain.Role) error {
 		"CreatedAt":   role.CreatedAt.Format(time.RFC3339),
 		"UpdatedAt":   role.UpdatedAt.Format(time.RFC3339),
 	}
-	av, err := dynamodbattribute.MarshalMap(item)
+	av, err := attributevalue.MarshalMap(item)
 	if err != nil {
 		return err
 	}
 	return xray.Capture(ctx, "DynamoDB.PutRole", func(ctx context.Context) error {
-		_, err = r.client.db.PutItemWithContext(ctx, &db.PutItemInput{
+		_, err = r.client.db.PutItem(ctx, &awsv2dynamodb.PutItemInput{
 			TableName:           aws.String(r.client.tableName),
 			Item:                av,
 			ConditionExpression: aws.String("attribute_not_exists(PK) AND attribute_not_exists(SK)"),
@@ -178,25 +178,25 @@ func (r *RoleRepository) Create(ctx context.Context, role domain.Role) error {
 }
 
 func (r *RoleRepository) Update(ctx context.Context, role domain.Role) error {
-	permissionsAV, err := dynamodbattribute.Marshal(role.Permissions)
+	permissionsAV, err := attributevalue.Marshal(role.Permissions)
 	if err != nil {
 		return err
 	}
 	return xray.Capture(ctx, "DynamoDB.UpdateRole", func(ctx context.Context) error {
-		_, err := r.client.db.UpdateItemWithContext(ctx, &db.UpdateItemInput{
+		_, err := r.client.db.UpdateItem(ctx, &awsv2dynamodb.UpdateItemInput{
 			TableName: aws.String(r.client.tableName),
-			Key: map[string]*db.AttributeValue{
-				"PK": {S: aws.String(appPK(role.AppID))},
-				"SK": {S: aws.String(roleSK(role.ID))},
+			Key: map[string]awsv2types.AttributeValue{
+				"PK": &awsv2types.AttributeValueMemberS{Value: appPK(role.AppID)},
+				"SK": &awsv2types.AttributeValueMemberS{Value: roleSK(role.ID)},
 			},
 			UpdateExpression: aws.String("SET #n = :n, Permissions = :p, UpdatedAt = :u"),
-			ExpressionAttributeNames: map[string]*string{
-				"#n": aws.String("Name"),
+			ExpressionAttributeNames: map[string]string{
+				"#n": "Name",
 			},
-			ExpressionAttributeValues: map[string]*db.AttributeValue{
-				":n": {S: aws.String(role.Name)},
+			ExpressionAttributeValues: map[string]awsv2types.AttributeValue{
+				":n": &awsv2types.AttributeValueMemberS{Value: role.Name},
 				":p": permissionsAV,
-				":u": {S: aws.String(role.UpdatedAt.Format(time.RFC3339))},
+				":u": &awsv2types.AttributeValueMemberS{Value: role.UpdatedAt.Format(time.RFC3339)},
 			},
 			ConditionExpression: aws.String("attribute_exists(PK)"),
 		})
@@ -208,15 +208,15 @@ func (r *RoleRepository) Update(ctx context.Context, role domain.Role) error {
 }
 
 func (r *RoleRepository) ListByAppID(ctx context.Context, appID string) ([]domain.Role, error) {
-	var out *db.QueryOutput
+	var out *awsv2dynamodb.QueryOutput
 	err := xray.Capture(ctx, "DynamoDB.QueryRoles", func(ctx context.Context) error {
 		var e error
-		out, e = r.client.db.QueryWithContext(ctx, &db.QueryInput{
+		out, e = r.client.db.Query(ctx, &awsv2dynamodb.QueryInput{
 			TableName:              aws.String(r.client.tableName),
 			KeyConditionExpression: aws.String("PK = :pk AND begins_with(SK, :sk)"),
-			ExpressionAttributeValues: map[string]*db.AttributeValue{
-				":pk": {S: aws.String(appPK(appID))},
-				":sk": {S: aws.String("ROLE#")},
+			ExpressionAttributeValues: map[string]awsv2types.AttributeValue{
+				":pk": &awsv2types.AttributeValueMemberS{Value: appPK(appID)},
+				":sk": &awsv2types.AttributeValueMemberS{Value: "ROLE#"},
 			},
 		})
 		return e
@@ -233,7 +233,7 @@ func (r *RoleRepository) ListByAppID(ctx context.Context, appID string) ([]domai
 			CreatedAt   string   `dynamodbav:"CreatedAt"`
 			UpdatedAt   string   `dynamodbav:"UpdatedAt"`
 		}{}
-		if err := dynamodbattribute.UnmarshalMap(item, &raw); err != nil {
+		if err := attributevalue.UnmarshalMap(item, &raw); err != nil {
 			return nil, err
 		}
 		createdAt, _ := time.Parse(time.RFC3339, raw.CreatedAt)
@@ -244,7 +244,7 @@ func (r *RoleRepository) ListByAppID(ctx context.Context, appID string) ([]domai
 }
 
 func (r *PermissionRepository) Create(ctx context.Context, permission domain.Permission) error {
-	item := map[string]interface{}{
+	item := map[string]any{
 		"PK":          appPK(permission.AppID),
 		"SK":          permSK(permission.ID),
 		"EntityType":  "PERMISSION",
@@ -253,12 +253,12 @@ func (r *PermissionRepository) Create(ctx context.Context, permission domain.Per
 		"Description": permission.Description,
 		"CreatedAt":   permission.CreatedAt.Format(time.RFC3339),
 	}
-	av, err := dynamodbattribute.MarshalMap(item)
+	av, err := attributevalue.MarshalMap(item)
 	if err != nil {
 		return err
 	}
 	return xray.Capture(ctx, "DynamoDB.PutPermission", func(ctx context.Context) error {
-		_, err = r.client.db.PutItemWithContext(ctx, &db.PutItemInput{
+		_, err = r.client.db.PutItem(ctx, &awsv2dynamodb.PutItemInput{
 			TableName:           aws.String(r.client.tableName),
 			Item:                av,
 			ConditionExpression: aws.String("attribute_not_exists(PK) AND attribute_not_exists(SK)"),
@@ -268,15 +268,15 @@ func (r *PermissionRepository) Create(ctx context.Context, permission domain.Per
 }
 
 func (r *PermissionRepository) ListByAppID(ctx context.Context, appID string) ([]domain.Permission, error) {
-	var out *db.QueryOutput
+	var out *awsv2dynamodb.QueryOutput
 	err := xray.Capture(ctx, "DynamoDB.QueryPermissions", func(ctx context.Context) error {
 		var e error
-		out, e = r.client.db.QueryWithContext(ctx, &db.QueryInput{
+		out, e = r.client.db.Query(ctx, &awsv2dynamodb.QueryInput{
 			TableName:              aws.String(r.client.tableName),
 			KeyConditionExpression: aws.String("PK = :pk AND begins_with(SK, :sk)"),
-			ExpressionAttributeValues: map[string]*db.AttributeValue{
-				":pk": {S: aws.String(appPK(appID))},
-				":sk": {S: aws.String("PERM#")},
+			ExpressionAttributeValues: map[string]awsv2types.AttributeValue{
+				":pk": &awsv2types.AttributeValueMemberS{Value: appPK(appID)},
+				":sk": &awsv2types.AttributeValueMemberS{Value: "PERM#"},
 			},
 		})
 		return e
@@ -292,7 +292,7 @@ func (r *PermissionRepository) ListByAppID(ctx context.Context, appID string) ([
 			Description string `dynamodbav:"Description"`
 			CreatedAt   string `dynamodbav:"CreatedAt"`
 		}{}
-		if err := dynamodbattribute.UnmarshalMap(item, &raw); err != nil {
+		if err := attributevalue.UnmarshalMap(item, &raw); err != nil {
 			return nil, err
 		}
 		createdAt, _ := time.Parse(time.RFC3339, raw.CreatedAt)
@@ -313,19 +313,19 @@ func (r *UserRoleRepository) AssignRole(ctx context.Context, appID, userID, role
 		}
 	}
 	roles = append(roles, roleID)
-	rolesAV, err := dynamodbattribute.Marshal(roles)
+	rolesAV, err := attributevalue.Marshal(roles)
 	if err != nil {
 		return err
 	}
 	return xray.Capture(ctx, "DynamoDB.PutUserRole", func(ctx context.Context) error {
-		_, err := r.client.db.PutItemWithContext(ctx, &db.PutItemInput{
+		_, err := r.client.db.PutItem(ctx, &awsv2dynamodb.PutItemInput{
 			TableName: aws.String(r.client.tableName),
-			Item: map[string]*db.AttributeValue{
-				"PK":         {S: aws.String(userPK(userID))},
-				"SK":         {S: aws.String(userAppSK(appID))},
-				"EntityType": {S: aws.String("USER_APP_ROLES")},
+			Item: map[string]awsv2types.AttributeValue{
+				"PK":         &awsv2types.AttributeValueMemberS{Value: userPK(userID)},
+				"SK":         &awsv2types.AttributeValueMemberS{Value: userAppSK(appID)},
+				"EntityType": &awsv2types.AttributeValueMemberS{Value: "USER_APP_ROLES"},
 				"Roles":      rolesAV,
-				"UpdatedAt":  {S: aws.String(time.Now().UTC().Format(time.RFC3339))},
+				"UpdatedAt":  &awsv2types.AttributeValueMemberS{Value: time.Now().UTC().Format(time.RFC3339)},
 			},
 		})
 		return err
@@ -333,14 +333,14 @@ func (r *UserRoleRepository) AssignRole(ctx context.Context, appID, userID, role
 }
 
 func (r *UserRoleRepository) GetByUserAndApp(ctx context.Context, appID, userID string) (domain.UserAppRoles, error) {
-	var out *db.GetItemOutput
+	var out *awsv2dynamodb.GetItemOutput
 	err := xray.Capture(ctx, "DynamoDB.GetUserRoles", func(ctx context.Context) error {
 		var e error
-		out, e = r.client.db.GetItemWithContext(ctx, &db.GetItemInput{
+		out, e = r.client.db.GetItem(ctx, &awsv2dynamodb.GetItemInput{
 			TableName: aws.String(r.client.tableName),
-			Key: map[string]*db.AttributeValue{
-				"PK": {S: aws.String(userPK(userID))},
-				"SK": {S: aws.String(userAppSK(appID))},
+			Key: map[string]awsv2types.AttributeValue{
+				"PK": &awsv2types.AttributeValueMemberS{Value: userPK(userID)},
+				"SK": &awsv2types.AttributeValueMemberS{Value: userAppSK(appID)},
 			},
 		})
 		return e
@@ -355,7 +355,7 @@ func (r *UserRoleRepository) GetByUserAndApp(ctx context.Context, appID, userID 
 		Roles     []string `dynamodbav:"Roles"`
 		UpdatedAt string   `dynamodbav:"UpdatedAt"`
 	}{}
-	if err := dynamodbattribute.UnmarshalMap(out.Item, &raw); err != nil {
+	if err := attributevalue.UnmarshalMap(out.Item, &raw); err != nil {
 		return domain.UserAppRoles{}, err
 	}
 	updatedAt, _ := time.Parse(time.RFC3339, raw.UpdatedAt)

@@ -2,8 +2,12 @@ APP_NAME=rbac-service
 BIN_DIR=bin
 AWS_REGION?=us-east-1
 AWS_ACCOUNT_ID?=
+AWS_PROFILE?=
 IMAGE_TAG?=latest
-ECR_REPOSITORY?=rbac-service
+ECR_REPOSITORY?=rbac-dev-service
+GOARCH?=arm64
+DOCKER_PLATFORM?=linux/arm64
+AWS_PROFILE_FLAG=$(if $(AWS_PROFILE),--profile $(AWS_PROFILE),)
 ECR_REGISTRY=$(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
 ECR_IMAGE=$(ECR_REGISTRY)/$(ECR_REPOSITORY):$(IMAGE_TAG)
 
@@ -11,14 +15,17 @@ ECR_IMAGE=$(ECR_REGISTRY)/$(ECR_REPOSITORY):$(IMAGE_TAG)
 
 build:
 	mkdir -p $(BIN_DIR)
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME) ./cmd/bootstrap
+	GOOS=linux GOARCH=$(GOARCH) CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME) ./cmd/bootstrap
 
 docker-build:
-	docker build -t rbac-service:$(IMAGE_TAG) .
+	docker build --platform $(DOCKER_PLATFORM) -t rbac-service:$(IMAGE_TAG) .
 
 ecr-login:
 	@if [ -z "$(AWS_ACCOUNT_ID)" ]; then echo "AWS_ACCOUNT_ID is required"; exit 1; fi
-	aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(ECR_REGISTRY)
+	@aws sts get-caller-identity $(AWS_PROFILE_FLAG) >/dev/null || (echo "Invalid or expired AWS credentials. Run 'aws sso login --profile <profile>' or export valid AWS_* vars."; exit 1)
+	@PASS="$$(aws ecr get-login-password --region $(AWS_REGION) $(AWS_PROFILE_FLAG))"; \
+	if [ -z "$$PASS" ]; then echo "Failed to get ECR login password"; exit 1; fi; \
+	echo "$$PASS" | docker login --username AWS --password-stdin $(ECR_REGISTRY)
 
 ecr-tag:
 	@if [ -z "$(AWS_ACCOUNT_ID)" ]; then echo "AWS_ACCOUNT_ID is required"; exit 1; fi

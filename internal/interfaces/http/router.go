@@ -8,7 +8,9 @@ import (
 )
 
 type Middleware struct {
-	Auth echo.MiddlewareFunc
+	Auth          echo.MiddlewareFunc
+	XRay          echo.MiddlewareFunc
+	RequestLogger echo.MiddlewareFunc
 }
 
 func newEcho(m Middleware) *echo.Echo {
@@ -16,6 +18,12 @@ func newEcho(m Middleware) *echo.Echo {
 	e.HideBanner = true
 	e.Use(middleware.Recover())
 	e.Use(middleware.RequestID())
+	if m.XRay != nil {
+		e.Use(m.XRay)
+	}
+	if m.RequestLogger != nil {
+		e.Use(m.RequestLogger)
+	}
 	if m.Auth != nil {
 		e.Use(m.Auth)
 	}
@@ -70,6 +78,12 @@ func NewMainRouter(
 	e.HideBanner = true
 	e.Use(middleware.Recover())
 	e.Use(middleware.RequestID())
+	if m.XRay != nil {
+		e.Use(m.XRay)
+	}
+	if m.RequestLogger != nil {
+		e.Use(m.RequestLogger)
+	}
 	e.GET("/health", func(c echo.Context) error {
 		return c.NoContent(http.StatusOK)
 	})
