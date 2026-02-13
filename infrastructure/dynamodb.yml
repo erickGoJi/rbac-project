@@ -1,0 +1,31 @@
+service: rbac-dynamodb
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+
+resources:
+  Resources:
+    RBACDynamoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: rbac-dev
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+
+  Outputs:
+    TableName:
+      Value: rbac-dev
+      Export:
+        Name: rbac-dev-table-name

@@ -3,10 +3,8 @@ module rbac-project
 go 1.22
 
 require (
-	github.com/aws/aws-lambda-go v1.47.0
 	github.com/aws/aws-sdk-go v1.55.5
 	github.com/aws/aws-xray-sdk-go v1.8.5
-	github.com/awslabs/aws-lambda-go-api-proxy v0.16.2
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/stretchr/testify v1.10.0

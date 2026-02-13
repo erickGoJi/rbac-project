@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-xray-sdk-go/xray"
 	"github.com/labstack/echo/v4"
 	adapterauth "rbac-project/internal/adapters/http/middleware"
@@ -13,15 +12,15 @@ import (
 	"rbac-project/internal/infrastructure/auth"
 	"rbac-project/internal/infrastructure/dynamodb"
 	httpiface "rbac-project/internal/interfaces/http"
-	platformlambda "rbac-project/internal/platform/lambda"
 )
 
 type config struct {
-	TableName  string
-	Region     string
-	UserPoolID string
-	Handler    string
-	AuthMode   adapterauth.Mode
+	TableName         string
+	Region            string
+	UserPoolID        string
+	AuthMode          adapterauth.Mode
+	AuthorizeTestMode string
+	Port              string
 }
 
 func loadConfig() (config, error) {
@@ -29,14 +28,19 @@ func loadConfig() (config, error) {
 	if err != nil {
 		return config{}, err
 	}
-	cfg := config{
-		TableName:  os.Getenv("TABLE_NAME"),
-		Region:     os.Getenv("AWS_REGION"),
-		UserPoolID: os.Getenv("COGNITO_USER_POOL_ID"),
-		Handler:    os.Getenv("LAMBDA_HANDLER"),
-		AuthMode:   authMode,
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
 	}
-	if cfg.TableName == "" || cfg.Region == "" || cfg.Handler == "" {
+	cfg := config{
+		TableName:         os.Getenv("TABLE_NAME"),
+		Region:            os.Getenv("AWS_REGION"),
+		UserPoolID:        os.Getenv("COGNITO_USER_POOL_ID"),
+		AuthMode:          authMode,
+		AuthorizeTestMode: os.Getenv("AUTHORIZE_TEST_MODE"),
+		Port:              port,
+	}
+	if cfg.TableName == "" || cfg.Region == "" {
 		return config{}, errors.New("missing required environment variables")
 	}
 	if cfg.AuthMode == adapterauth.ModeCognito && cfg.UserPoolID == "" {
@@ -77,27 +81,13 @@ func main() {
 	}
 	mw := httpiface.Middleware{Auth: authMiddleware}
 
-	applicationsHandler := httpiface.NewApplicationsHandler(appSvc)
-	rolesHandler := httpiface.NewRolesHandler(roleSvc)
-	permissionsHandler := httpiface.NewPermissionsHandler(permSvc)
-	usersHandler := httpiface.NewUsersHandler(userSvc)
-	authorizeHandler := httpiface.NewAuthorizationHandler(authorizationSvc)
-
-	var lambdaHandler platformlambda.LambdaHandler
-	switch cfg.Handler {
-	case "applications":
-		lambdaHandler = platformlambda.NewLambdaHandler(httpiface.NewApplicationsRouter(applicationsHandler, mw))
-	case "roles":
-		lambdaHandler = platformlambda.NewLambdaHandler(httpiface.NewRolesRouter(rolesHandler, mw))
-	case "permissions":
-		lambdaHandler = platformlambda.NewLambdaHandler(httpiface.NewPermissionsRouter(permissionsHandler, mw))
-	case "users":
-		lambdaHandler = platformlambda.NewLambdaHandler(httpiface.NewUsersRouter(usersHandler, mw))
-	case "authorization":
-		lambdaHandler = platformlambda.NewLambdaHandler(httpiface.NewAuthorizationRouter(authorizeHandler, mw))
-	default:
-		log.Fatalf("unknown LAMBDA_HANDLER: %s", cfg.Handler)
-	}
-
-	lambda.Start(lambdaHandler)
+	e := httpiface.NewMainRouter(
+		httpiface.NewApplicationsHandler(appSvc),
+		httpiface.NewRolesHandler(roleSvc),
+		httpiface.NewPermissionsHandler(permSvc),
+		httpiface.NewUsersHandler(userSvc),
+		httpiface.NewAuthorizationHandler(authorizationSvc),
+		mw,
+	)
+	e.Logger.Fatal(e.Start(":" + cfg.Port))
 }

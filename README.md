@@ -1,167 +1,137 @@
-# RBAC Service (Go + Hexagonal + Serverless)
+# RBAC Service (Go + Hexagonal + ECS Fargate)
 
-Servicio RBAC en Go con arquitectura hexagonal, Echo, AWS Lambda (5 funciones), API Gateway HTTP API, DynamoDB single-table, validación JWT Cognito, X-Ray y TDD con Testify.
+RBAC service in Go with hexagonal architecture, Echo HTTP server, DynamoDB single-table design, configurable authentication middleware, and AWS X-Ray instrumentation.
 
-## Arquitectura Hexagonal
+## Architecture
 
-### Capas
-- `internal/domain`: entidades y errores de dominio.
-- `internal/ports`: contratos (interfaces) de repositorios.
-- `internal/application`: casos de uso/servicios (lógica de negocio).
-- `internal/infrastructure`: implementaciones técnicas (DynamoDB, Cognito JWT).
-- `internal/interfaces/http`: handlers y routers Echo por dominio.
-- `cmd/bootstrap`: composición de dependencias + selección de Lambda por `LAMBDA_HANDLER`.
+### Layers
+- `internal/domain`: entities and domain errors.
+- `internal/ports`: repository interfaces.
+- `internal/application`: use cases and business services.
+- `internal/infrastructure`: technical adapters (DynamoDB, Cognito JWT).
+- `internal/adapters/http`: auth middleware (`AUTH_MODE`).
+- `internal/interfaces/http`: Echo handlers and route registration.
+- `cmd/bootstrap`: application composition and HTTP startup.
 
-### Principios aplicados
-- Sin lógica de negocio en handlers.
-- Dominio desacoplado de infraestructura.
-- Un solo binario `bootstrap` reutilizado por 5 funciones Lambda.
-- Sin variables globales.
+### Runtime model
+- Standard HTTP app listening on `:8080`.
+- Health endpoint: `GET /health`.
+- All RBAC endpoints served by the same Echo app.
+- `AUTHORIZE_TEST_MODE=true` forces `/authorize` to return `{"allowed": true}` for smoke/integration testing.
 
-## Diagrama de interacción
+## Endpoints
 
-```mermaid
-flowchart LR
-    Client["API Client"] --> APIGW["API Gateway HTTP API"]
-    APIGW --> L1["Lambda Applications"]
-    APIGW --> L2["Lambda Roles"]
-    APIGW --> L3["Lambda Permissions"]
-    APIGW --> L4["Lambda Users"]
-    APIGW --> L5["Lambda Authorization"]
+- `GET /health`
+- `POST /applications`
+- `PUT /applications/{id}`
+- `GET /applications/{id}`
+- `POST /applications/{app_id}/roles`
+- `PUT /applications/{app_id}/roles/{role_id}`
+- `GET /applications/{app_id}/roles`
+- `POST /applications/{app_id}/permissions`
+- `GET /applications/{app_id}/permissions`
+- `POST /applications/{app_id}/users/{user_id}/roles`
+- `GET /applications/{app_id}/users/{user_id}`
+- `POST /authorize`
 
-    L1 --> B["bootstrap (single binary)"]
-    L2 --> B
-    L3 --> B
-    L4 --> B
-    L5 --> B
+## Authentication modes
 
-    B --> E["Echo Router (per lambda)"]
-    E --> S["Application Services"]
-    S --> P["Ports"]
-    P --> DDB["DynamoDB rbac-dev (single table)"]
+Controlled by `AUTH_MODE`:
+- `none`: no auth checks in middleware.
+- `api_key`: no auth checks in app (gateway/infrastructure enforces it if configured).
+- `cognito`: validates JWT with Cognito JWK and injects `user_id` from `sub`.
 
-    B --> JWT["Cognito JWT Middleware (JWK cache)"]
-```
+`AUTHORIZE_TEST_MODE`:
+- `true`: `/authorize` short-circuits to allow requests.
+- `false`: normal authorization flow using services/repositories.
 
-## Lambdas y rutas
+## Local build and run
 
-- Applications Lambda
-  - `POST /applications`
-  - `PUT /applications/{id}`
-  - `GET /applications/{id}`
-- Roles Lambda
-  - `POST /applications/{app_id}/roles`
-  - `PUT /applications/{app_id}/roles/{role_id}`
-  - `GET /applications/{app_id}/roles`
-- Permissions Lambda
-  - `POST /applications/{app_id}/permissions`
-  - `GET /applications/{app_id}/permissions`
-- Users Lambda
-  - `POST /applications/{app_id}/users/{user_id}/roles`
-  - `GET /applications/{app_id}/users/{user_id}`
-- Authorization Lambda
-  - `POST /authorize`
-
-## DynamoDB Single-Table Design
-
-Tabla: `rbac-dev` (real: `rbac-${stage}`)
-
-- Application
-  - `PK = APP#<app_id>`
-  - `SK = META`
-- Role
-  - `PK = APP#<app_id>`
-  - `SK = ROLE#<role_id>`
-  - `permissions: []string`
-- Permission
-  - `PK = APP#<app_id>`
-  - `SK = PERM#<permission_id>`
-- UserAppRoles
-  - `PK = USER#<user_id>`
-  - `SK = APP#<app_id>`
-  - `roles: []string`
-
-## Variables necesarias
-
-```bash
-export AWS_REGION=us-east-1
-export COGNITO_USER_POOL_ID=<your_user_pool_id>
-export AUTH_MODE=api_key
-export INTERNAL_API_TOKEN=<optional>
-```
-
-## Build y Deploy
-
+### Build binary
 ```bash
 make build
-sls deploy --stage dev
 ```
 
+### Docker build
+```bash
+docker build -t rbac-service .
+```
+
+### Docker run
+```bash
+docker run --rm -p 8080:8080 \
+  -e TABLE_NAME=rbac-dev \
+  -e AWS_REGION=us-east-1 \
+  -e AUTH_MODE=none \
+  -e AUTHORIZE_TEST_MODE=true \
+  rbac-service
+```
+
+## Infrastructure stacks
+
+Infrastructure is split into:
+- `infrastructure/dynamodb.yml`
+- `infrastructure/serverless.yml`
+
+### Deploy DynamoDB stack
+```bash
+cd infrastructure
+sls deploy --config dynamodb.yml --stage dev --region us-east-1
+```
+
+### Build/push container image
+```bash
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account_id>.dkr.ecr.us-east-1.amazonaws.com
+
+docker build -t rbac-service .
+docker tag rbac-service:latest <account_id>.dkr.ecr.us-east-1.amazonaws.com/rbac-service:latest
+docker push <account_id>.dkr.ecr.us-east-1.amazonaws.com/rbac-service:latest
+```
+
+### Build/push using Makefile
+```bash
+make ecr-release AWS_REGION=us-east-1 AWS_ACCOUNT_ID=<account_id> IMAGE_TAG=latest
+```
+
+### Deploy ECS/ALB/API stack
+```bash
+cd infrastructure
+ECR_IMAGE_URI=<account_id>.dkr.ecr.us-east-1.amazonaws.com/rbac-service:latest \
+AUTH_MODE=none \
+AUTHORIZE_TEST_MODE=false \
+sls deploy --config serverless.yml --stage dev --region us-east-1
+```
+
+## AWS components created by `infrastructure/serverless.yml`
+
+- ECR repository.
+- VPC with public and private subnets.
+- NAT gateway and routing.
+- ECS Fargate cluster, task definition, and service.
+- Internal ALB + target group.
+- API Gateway HTTP API + VPC Link to ALB.
+- ECS target tracking autoscaling (`min=1`, `max=3`, `CPU=60%`).
+- X-Ray sidecar daemon container in ECS task.
+
+## X-Ray
+
+- DynamoDB client is instrumented with `aws-xray-sdk-go`.
+- App initializes X-Ray in `cmd/bootstrap/main.go`.
+- ECS task definition includes an X-Ray daemon sidecar.
+
 ## Tests
+
+Existing domain/application tests remain unchanged.
 
 ```bash
 make test
 ```
 
-## MVP Authentication Mode
-
-Este MVP usa API Key en API Gateway.
-
-### Obtener API Key
-
-En AWS Console: API Gateway -> API Keys -> `rbac-dev-key`.
-
-### Usar API Key
-
-Incluye el header `x-api-key` en cada request:
+## ECS smoke test
 
 ```bash
-curl -X GET "$API_URL/applications/app-1" \
-  -H "x-api-key: <your-key>" \
-  -H "Authorization: Bearer <jwt>"
+export API_URL=<http_api_endpoint>
+export API_KEY=<optional_api_key>
+export JWT=<optional_jwt>
+./smoke-ecs.sh
 ```
-
-### Modos de autenticacion
-
-`AUTH_MODE` define el comportamiento del middleware:
-
-- `none`: no valida nada.
-- `api_key`: no valida en Lambda, API Gateway valida el `x-api-key`.
-- `cognito`: usa el validador JWT de Cognito.
-
-### To enable Cognito
-
-1. Set `AUTH_MODE=cognito`.
-2. Configure `httpApi` authorizer in `serverless.yml`.
-3. Provide `COGNITO_USER_POOL_ID`.
-
-## Ejemplo de request de autorización
-
-```bash
-curl -X POST "$API_URL/authorize" \
-  -H "Authorization: Bearer <jwt>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "app_id": "app-1",
-    "permission": "perm:read"
-  }'
-```
-
-Respuesta esperada:
-
-```json
-{"allowed": true}
-```
-
-## X-Ray
-
-`serverless.yml` habilita:
-
-```yaml
-provider:
-  tracing:
-    lambda: true
-    apiGateway: true
-```
-
-Además el cliente DynamoDB se instrumenta con `aws-xray-sdk-go`.

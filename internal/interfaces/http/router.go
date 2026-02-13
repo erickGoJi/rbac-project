@@ -1,6 +1,8 @@
 package http
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -53,5 +55,39 @@ func NewUsersRouter(h *UsersHandler, m Middleware) *echo.Echo {
 func NewAuthorizationRouter(h *AuthorizationHandler, m Middleware) *echo.Echo {
 	e := newEcho(m)
 	e.POST("/authorize", h.Authorize)
+	return e
+}
+
+func NewMainRouter(
+	applications *ApplicationsHandler,
+	roles *RolesHandler,
+	permissions *PermissionsHandler,
+	users *UsersHandler,
+	authorization *AuthorizationHandler,
+	m Middleware,
+) *echo.Echo {
+	e := echo.New()
+	e.HideBanner = true
+	e.Use(middleware.Recover())
+	e.Use(middleware.RequestID())
+	e.GET("/health", func(c echo.Context) error {
+		return c.NoContent(http.StatusOK)
+	})
+
+	api := e.Group("")
+	if m.Auth != nil {
+		api.Use(m.Auth)
+	}
+	api.POST("/applications", applications.Create)
+	api.PUT("/applications/:id", applications.Update)
+	api.GET("/applications/:id", applications.Get)
+	api.POST("/applications/:app_id/roles", roles.Create)
+	api.PUT("/applications/:app_id/roles/:role_id", roles.Update)
+	api.GET("/applications/:app_id/roles", roles.List)
+	api.POST("/applications/:app_id/permissions", permissions.Create)
+	api.GET("/applications/:app_id/permissions", permissions.List)
+	api.POST("/applications/:app_id/users/:user_id/roles", users.AssignRole)
+	api.GET("/applications/:app_id/users/:user_id", users.Get)
+	api.POST("/authorize", authorization.Authorize)
 	return e
 }
