@@ -1,0 +1,98 @@
+Resources:
+  TaskRoleDynamoDbPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: rbac-dev-task-dynamodb-policy
+      Roles:
+        - !Ref ECSTaskRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:Query
+              - dynamodb:DeleteItem
+            Resource:
+              Fn::ImportValue: rbac-dev-dynamodb-TableArn
+
+  TaskRoleXRayPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: rbac-dev-task-xray-policy
+      Roles:
+        - !Ref ECSTaskRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - xray:PutTraceSegments
+              - xray:PutTelemetryRecords
+            Resource: '*'
+
+  TaskRoleCloudWatchLogsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: rbac-dev-task-logs-policy
+      Roles:
+        - !Ref ECSTaskRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/ecs/rbac-dev-service:*
+
+  TaskExecutionRoleEcrPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: rbac-dev-execution-ecr-policy
+      Roles:
+        - !Ref ECSTaskExecutionRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - ecr:GetAuthorizationToken
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - ecr:BatchGetImage
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchCheckLayerAvailability
+            Resource: !Sub arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/rbac-dev-service
+
+  TaskExecutionRoleCloudWatchLogsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: rbac-dev-execution-logs-policy
+      Roles:
+        - !Ref ECSTaskExecutionRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/ecs/rbac-dev-service:*
+
+  TaskExecutionRoleEcsExecutionPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: rbac-dev-execution-ecs-policy
+      Roles:
+        - !Ref ECSTaskExecutionRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - ecs:StartTelemetrySession
+            Resource: '*'

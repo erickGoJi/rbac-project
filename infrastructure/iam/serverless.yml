@@ -1,0 +1,21 @@
+service: rbac-dev-iam
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  stackName: rbac-dev-iam
+
+resources:
+  - ${file(./roles.yml)}
+  - ${file(./policies.yml)}
+  - Outputs:
+      TaskExecutionRoleArn:
+        Value: !GetAtt ECSTaskExecutionRole.Arn
+        Export:
+          Name: rbac-dev-iam-TaskExecutionRoleArn
+      TaskRoleArn:
+        Value: !GetAtt ECSTaskRole.Arn
+        Export:
+          Name: rbac-dev-iam-TaskRoleArn

@@ -72,11 +72,31 @@ docker run --rm -p 8080:8080 \
 Infrastructure is split into:
 - `infrastructure/serverless-compose.yml`
 - `infrastructure/network/serverless.yml`
+- `infrastructure/iam/serverless.yml`
 - `infrastructure/dynamodb/serverless.yml`
 - `infrastructure/ecr/serverless.yml`
 - `infrastructure/alb/serverless.yml`
 - `infrastructure/ecs/serverless.yml`
 - `infrastructure/apigateway/serverless.yml`
+
+## IAM Stack
+
+IAM resources are isolated in `infrastructure/iam` to decouple permissions from compute/network stacks.
+
+- Defines ECS task execution role and ECS task role.
+- Defines least-privilege inline policies for DynamoDB, X-Ray, CloudWatch Logs, and ECR pull.
+- Exports:
+  - `TaskExecutionRoleArn`
+  - `TaskRoleArn`
+
+Deploy IAM independently:
+
+```bash
+cd infrastructure/iam
+serverless deploy
+```
+
+ECS stack consumes these exported ARNs via `${cf:rbac-dev-iam.*}` and depends on IAM in compose.
 
 ### Infrastructure Deployment
 ```bash
@@ -104,6 +124,7 @@ make ecr-release AWS_REGION=us-east-1 AWS_ACCOUNT_ID=<account_id> IMAGE_TAG=late
 ## AWS components created by compose stacks
 
 - VPC networking resources and security groups.
+- IAM roles and policies for ECS task execution and runtime access.
 - DynamoDB table (`rbac-dev`).
 - ECR repository (`rbac-dev-service`).
 - Internal ALB + listener + target group.

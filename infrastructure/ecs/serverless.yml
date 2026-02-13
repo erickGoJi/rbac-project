@@ -23,49 +23,6 @@ resources:
         LogGroupName: /ecs/rbac-dev-service
         RetentionInDays: 14
 
-    ECSTaskExecutionRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service: ecs-tasks.amazonaws.com
-              Action: sts:AssumeRole
-        ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
-
-    ECSTaskRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service: ecs-tasks.amazonaws.com
-              Action: sts:AssumeRole
-        Policies:
-          - PolicyName: rbac-dev-ecs-task-policy
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - dynamodb:GetItem
-                    - dynamodb:PutItem
-                    - dynamodb:UpdateItem
-                    - dynamodb:Query
-                    - dynamodb:DeleteItem
-                  Resource:
-                    Fn::ImportValue: rbac-dev-dynamodb-TableArn
-                - Effect: Allow
-                  Action:
-                    - xray:PutTraceSegments
-                    - xray:PutTelemetryRecords
-                  Resource: '*'
-
     TaskDefinition:
       Type: AWS::ECS::TaskDefinition
       Properties:
@@ -78,8 +35,8 @@ resources:
         NetworkMode: awsvpc
         RequiresCompatibilities:
           - FARGATE
-        ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
-        TaskRoleArn: !GetAtt ECSTaskRole.Arn
+        ExecutionRoleArn: ${cf:rbac-dev-iam.TaskExecutionRoleArn}
+        TaskRoleArn: ${cf:rbac-dev-iam.TaskRoleArn}
         ContainerDefinitions:
           - Name: rbac-dev-service
             Image: !Sub
@@ -143,26 +100,12 @@ resources:
             TargetGroupArn:
               Fn::ImportValue: rbac-dev-alb-TargetGroupArn
 
-    ECSAutoScalingRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service: application-autoscaling.amazonaws.com
-              Action: sts:AssumeRole
-        ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole
-
     ECSScalableTarget:
       Type: AWS::ApplicationAutoScaling::ScalableTarget
       Properties:
         MaxCapacity: 3
         MinCapacity: 1
         ResourceId: !Sub service/${ECSCluster}/${ECSService.Name}
-        RoleARN: !GetAtt ECSAutoScalingRole.Arn
         ScalableDimension: ecs:service:DesiredCount
         ServiceNamespace: ecs
 
