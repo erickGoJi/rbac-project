@@ -1,0 +1,83 @@
+service: rbac-dev-apigateway
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  stackName: rbac-dev-apigateway
+  tracing:
+    apiGateway: true
+
+resources:
+  Resources:
+    VpcLinkSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: rbac-dev-vpc-link-sg
+        VpcId:
+          Fn::ImportValue: rbac-dev-network-VpcId
+        SecurityGroupEgress:
+          - IpProtocol: tcp
+            FromPort: 80
+            ToPort: 80
+            DestinationSecurityGroupId:
+              Fn::ImportValue: rbac-dev-network-AlbSecurityGroupId
+
+    ApiGatewayVpcLink:
+      Type: AWS::ApiGatewayV2::VpcLink
+      Properties:
+        Name: rbac-dev-vpc-link
+        SecurityGroupIds:
+          - !Ref VpcLinkSecurityGroup
+        SubnetIds: !Split [",", { Fn::ImportValue: rbac-dev-network-PrivateSubnetIds }]
+
+    HttpApi:
+      Type: AWS::ApiGatewayV2::Api
+      Properties:
+        Name: rbac-dev-http-api
+        ProtocolType: HTTP
+
+    HttpApiIntegration:
+      Type: AWS::ApiGatewayV2::Integration
+      Properties:
+        ApiId: !Ref HttpApi
+        ConnectionType: VPC_LINK
+        ConnectionId: !Ref ApiGatewayVpcLink
+        IntegrationType: HTTP_PROXY
+        IntegrationMethod: ANY
+        IntegrationUri:
+          Fn::ImportValue: rbac-dev-alb-ListenerArn
+        PayloadFormatVersion: '1.0'
+
+    HttpApiRouteRoot:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref HttpApi
+        RouteKey: 'ANY /'
+        Target: !Sub integrations/${HttpApiIntegration}
+
+    HttpApiRouteProxy:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref HttpApi
+        RouteKey: 'ANY /{proxy+}'
+        Target: !Sub integrations/${HttpApiIntegration}
+
+    HttpApiStage:
+      Type: AWS::ApiGatewayV2::Stage
+      Properties:
+        ApiId: !Ref HttpApi
+        StageName: dev
+        AutoDeploy: true
+
+  Outputs:
+    HttpApiUrl:
+      Value: !Sub https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com/dev
+      Export:
+        Name: rbac-dev-apigateway-HttpApiUrl
+    AlbArn:
+      Value:
+        Fn::ImportValue: rbac-dev-alb-AlbArn
+      Export:
+        Name: rbac-dev-apigateway-AlbArn

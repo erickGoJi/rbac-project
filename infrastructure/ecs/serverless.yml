@@ -1,0 +1,185 @@
+service: rbac-dev-ecs
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  stackName: rbac-dev-ecs
+
+custom:
+  imageTag: ${env:IMAGE_TAG, 'latest'}
+
+resources:
+  Resources:
+    ECSCluster:
+      Type: AWS::ECS::Cluster
+      Properties:
+        ClusterName: rbac-dev-cluster
+
+    ECSLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: /ecs/rbac-dev-service
+        RetentionInDays: 14
+
+    ECSTaskExecutionRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: ecs-tasks.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+
+    ECSTaskRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: ecs-tasks.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: rbac-dev-ecs-task-policy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - dynamodb:GetItem
+                    - dynamodb:PutItem
+                    - dynamodb:UpdateItem
+                    - dynamodb:Query
+                    - dynamodb:DeleteItem
+                  Resource:
+                    Fn::ImportValue: rbac-dev-dynamodb-TableArn
+                - Effect: Allow
+                  Action:
+                    - xray:PutTraceSegments
+                    - xray:PutTelemetryRecords
+                  Resource: '*'
+
+    TaskDefinition:
+      Type: AWS::ECS::TaskDefinition
+      Properties:
+        Family: rbac-dev-service
+        Cpu: '512'
+        Memory: '1024'
+        NetworkMode: awsvpc
+        RequiresCompatibilities:
+          - FARGATE
+        ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
+        TaskRoleArn: !GetAtt ECSTaskRole.Arn
+        ContainerDefinitions:
+          - Name: rbac-dev-service
+            Image: !Sub
+              - "${RepoUri}:${Tag}"
+              - RepoUri:
+                  Fn::ImportValue: rbac-dev-ecr-RepositoryUri
+                Tag: ${self:custom.imageTag}
+            Essential: true
+            PortMappings:
+              - ContainerPort: 8080
+                Protocol: tcp
+            Environment:
+              - Name: TABLE_NAME
+                Value:
+                  Fn::ImportValue: rbac-dev-dynamodb-TableName
+              - Name: AUTH_MODE
+                Value: ${env:AUTH_MODE, 'none'}
+              - Name: AUTHORIZE_TEST_MODE
+                Value: ${env:AUTHORIZE_TEST_MODE, 'false'}
+              - Name: AWS_REGION
+                Value: ${aws:region}
+              - Name: COGNITO_USER_POOL_ID
+                Value: ${env:COGNITO_USER_POOL_ID, ''}
+            LogConfiguration:
+              LogDriver: awslogs
+              Options:
+                awslogs-group: !Ref ECSLogGroup
+                awslogs-region: ${aws:region}
+                awslogs-stream-prefix: app
+          - Name: xray-daemon
+            Image: public.ecr.aws/xray/aws-xray-daemon:3.3.3
+            Essential: false
+            PortMappings:
+              - ContainerPort: 2000
+                Protocol: udp
+            LogConfiguration:
+              LogDriver: awslogs
+              Options:
+                awslogs-group: !Ref ECSLogGroup
+                awslogs-region: ${aws:region}
+                awslogs-stream-prefix: xray
+
+    ECSService:
+      Type: AWS::ECS::Service
+      Properties:
+        ServiceName: rbac-dev-service
+        Cluster: !Ref ECSCluster
+        LaunchType: FARGATE
+        DesiredCount: 1
+        EnableExecuteCommand: true
+        TaskDefinition: !Ref TaskDefinition
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            AssignPublicIp: DISABLED
+            SecurityGroups:
+              - Fn::ImportValue: rbac-dev-network-EcsSecurityGroupId
+            Subnets: !Split [",", { Fn::ImportValue: rbac-dev-network-PrivateSubnetIds }]
+        LoadBalancers:
+          - ContainerName: rbac-dev-service
+            ContainerPort: 8080
+            TargetGroupArn:
+              Fn::ImportValue: rbac-dev-alb-TargetGroupArn
+
+    ECSAutoScalingRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: application-autoscaling.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole
+
+    ECSScalableTarget:
+      Type: AWS::ApplicationAutoScaling::ScalableTarget
+      Properties:
+        MaxCapacity: 3
+        MinCapacity: 1
+        ResourceId: !Sub service/${ECSCluster}/${ECSService.Name}
+        RoleARN: !GetAtt ECSAutoScalingRole.Arn
+        ScalableDimension: ecs:service:DesiredCount
+        ServiceNamespace: ecs
+
+    ECSCPUScalingPolicy:
+      Type: AWS::ApplicationAutoScaling::ScalingPolicy
+      Properties:
+        PolicyName: rbac-dev-cpu-scaling
+        PolicyType: TargetTrackingScaling
+        ScalingTargetId: !Ref ECSScalableTarget
+        TargetTrackingScalingPolicyConfiguration:
+          TargetValue: 60
+          PredefinedMetricSpecification:
+            PredefinedMetricType: ECSServiceAverageCPUUtilization
+
+  Outputs:
+    ClusterName:
+      Value: !Ref ECSCluster
+      Export:
+        Name: rbac-dev-ecs-ClusterName
+    ServiceName:
+      Value: !GetAtt ECSService.Name
+      Export:
+        Name: rbac-dev-ecs-ServiceName

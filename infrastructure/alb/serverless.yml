@@ -1,0 +1,61 @@
+service: rbac-dev-alb
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  stackName: rbac-dev-alb
+
+resources:
+  Resources:
+    AppLoadBalancer:
+      Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+      Properties:
+        Name: rbac-dev-alb
+        Type: application
+        Scheme: internal
+        SecurityGroups:
+          - Fn::ImportValue: rbac-dev-network-AlbSecurityGroupId
+        Subnets: !Split [",", { Fn::ImportValue: rbac-dev-network-PublicSubnetIds }]
+
+    AppTargetGroup:
+      Type: AWS::ElasticLoadBalancingV2::TargetGroup
+      Properties:
+        Name: rbac-dev-tg
+        Port: 8080
+        Protocol: HTTP
+        VpcId:
+          Fn::ImportValue: rbac-dev-network-VpcId
+        TargetType: ip
+        HealthCheckPath: /health
+        Matcher:
+          HttpCode: 200-399
+
+    AppListener:
+      Type: AWS::ElasticLoadBalancingV2::Listener
+      Properties:
+        LoadBalancerArn: !Ref AppLoadBalancer
+        Port: 80
+        Protocol: HTTP
+        DefaultActions:
+          - Type: forward
+            TargetGroupArn: !Ref AppTargetGroup
+
+  Outputs:
+    AlbArn:
+      Value: !Ref AppLoadBalancer
+      Export:
+        Name: rbac-dev-alb-AlbArn
+    AlbDnsName:
+      Value: !GetAtt AppLoadBalancer.DNSName
+      Export:
+        Name: rbac-dev-alb-AlbDnsName
+    TargetGroupArn:
+      Value: !Ref AppTargetGroup
+      Export:
+        Name: rbac-dev-alb-TargetGroupArn
+    ListenerArn:
+      Value: !Ref AppListener
+      Export:
+        Name: rbac-dev-alb-ListenerArn

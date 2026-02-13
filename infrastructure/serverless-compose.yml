@@ -1,0 +1,27 @@
+services:
+  network:
+    path: ./network
+
+  dynamodb:
+    path: ./dynamodb
+
+  ecr:
+    path: ./ecr
+
+  alb:
+    path: ./alb
+    dependsOn:
+      - network
+
+  ecs:
+    path: ./ecs
+    dependsOn:
+      - network
+      - ecr
+      - dynamodb
+      - alb
+
+  apigateway:
+    path: ./apigateway
+    dependsOn:
+      - alb

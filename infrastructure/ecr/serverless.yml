@@ -1,0 +1,23 @@
+service: rbac-dev-ecr
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: dev
+  region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  stackName: rbac-dev-ecr
+
+resources:
+  Resources:
+    ServiceRepository:
+      Type: AWS::ECR::Repository
+      Properties:
+        RepositoryName: rbac-dev-service
+        ImageScanningConfiguration:
+          ScanOnPush: true
+
+  Outputs:
+    RepositoryUri:
+      Value: !GetAtt ServiceRepository.RepositoryUri
+      Export:
+        Name: rbac-dev-ecr-RepositoryUri

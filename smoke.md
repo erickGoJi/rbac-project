@@ -1,53 +1,57 @@
-# Smoke Tests Guide
+# ECS Smoke Tests Guide
 
-This guide covers how to run the `smoke.sh` script after deployment.
+This guide covers how to run `smoke-ecs.sh` against the API Gateway endpoint deployed from Serverless Compose.
 
 ## Prerequisites
 
-- Deployed stack with `sls deploy --stage dev`
-- HTTP API endpoint URL
-- Valid Cognito JWT token
+- Infrastructure deployed from `infrastructure/serverless-compose.yml`.
+- Reachable API Gateway HTTP API endpoint.
+- Optional API key and/or JWT depending on your auth mode.
 
 ## Required environment variables
 
 ```bash
-export API_URL=<your_http_api_url>
-export JWT=<your_jwt>
-export API_KEY=<your_api_key>
+export API_URL=<http_api_endpoint>
 ```
 
-## Optional overrides
+## Common optional variables
 
 ```bash
-export APP_ID=app-1
-export USER_ID=user-123
+export BASE_PATH=/dev
+export API_KEY=<optional_api_key>
+export JWT=<optional_jwt>
+export APP_ID=app-ecs-1
+export USER_ID=user-ecs-1
 export ROLE_ID=admin
 export PERM_READ=perm:read
 export PERM_WRITE=perm:write
 ```
 
+## Authorization expectation variables
+
+Use these when `AUTHORIZE_TEST_MODE=true` or when you want custom checks:
+
+```bash
+export EXPECT_READ_ALLOWED=true
+export EXPECT_WRITE_ALLOWED=false
+```
+
 ## Run
 
 ```bash
-./smoke.sh
+./smoke-ecs.sh
 ```
 
-## What it does
+## What it validates
 
-1. Verifies auth is enforced (expect 401 when no JWT).
-2. Creates an application.
-3. Creates a permission.
-4. Creates a role with permission.
-5. Assigns role to user.
-6. Authorizes read permission (expect `allowed=true`).
-7. Authorizes write permission (expect `allowed=false`).
-8. Gets application.
-9. Lists roles.
-10. Lists permissions.
-11. Gets user roles.
+1. `GET /health` returns expected status (`EXPECT_HEALTH_STATUS`, default `200`).
+2. Creates application, permission, role, and user-role assignment.
+3. Calls `POST /authorize` for read and validates `allowed`.
+4. Calls `POST /authorize` for write and validates `allowed`.
+5. Reads back application, roles, permissions, and user-role data.
 
-## Expected output
+## Notes
 
-- Step 1 prints `401`.
-- Step 6 returns JSON with `allowed: true`.
-- Step 7 returns JSON with `allowed: false`.
+- If your API endpoint already includes `/dev`, set `BASE_PATH=` (empty).
+- If `AUTH_MODE=none`, API key and JWT are not required.
+- If `AUTHORIZE_TEST_MODE=true`, set both expected values to `true`.

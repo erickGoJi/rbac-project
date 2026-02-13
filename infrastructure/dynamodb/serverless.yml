@@ -1,10 +1,11 @@
-service: rbac-dynamodb
+service: rbac-dev-dynamodb
 frameworkVersion: '3'
 
 provider:
   name: aws
-  stage: ${opt:stage, 'dev'}
+  stage: dev
   region: ${opt:region, env:AWS_REGION, 'us-east-1'}
+  stackName: rbac-dev-dynamodb
 
 resources:
   Resources:
@@ -26,6 +27,10 @@ resources:
 
   Outputs:
     TableName:
-      Value: rbac-dev
+      Value: !Ref RBACDynamoTable
       Export:
-        Name: rbac-dev-table-name
+        Name: rbac-dev-dynamodb-TableName
+    TableArn:
+      Value: !GetAtt RBACDynamoTable.Arn
+      Export:
+        Name: rbac-dev-dynamodb-TableArn

@@ -70,46 +70,45 @@ docker run --rm -p 8080:8080 \
 ## Infrastructure stacks
 
 Infrastructure is split into:
-- `infrastructure/dynamodb.yml`
-- `infrastructure/serverless.yml`
+- `infrastructure/serverless-compose.yml`
+- `infrastructure/network/serverless.yml`
+- `infrastructure/dynamodb/serverless.yml`
+- `infrastructure/ecr/serverless.yml`
+- `infrastructure/alb/serverless.yml`
+- `infrastructure/ecs/serverless.yml`
+- `infrastructure/apigateway/serverless.yml`
 
-### Deploy DynamoDB stack
+### Infrastructure Deployment
 ```bash
 cd infrastructure
-sls deploy --config dynamodb.yml --stage dev --region us-east-1
+serverless deploy
+```
+
+To remove all compose stacks:
+```bash
+cd infrastructure
+serverless remove
+```
+
+### Deploy one stack independently
+```bash
+cd infrastructure/network
+serverless deploy
 ```
 
 ### Build/push container image
 ```bash
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account_id>.dkr.ecr.us-east-1.amazonaws.com
-
-docker build -t rbac-service .
-docker tag rbac-service:latest <account_id>.dkr.ecr.us-east-1.amazonaws.com/rbac-service:latest
-docker push <account_id>.dkr.ecr.us-east-1.amazonaws.com/rbac-service:latest
-```
-
-### Build/push using Makefile
-```bash
 make ecr-release AWS_REGION=us-east-1 AWS_ACCOUNT_ID=<account_id> IMAGE_TAG=latest
 ```
 
-### Deploy ECS/ALB/API stack
-```bash
-cd infrastructure
-ECR_IMAGE_URI=<account_id>.dkr.ecr.us-east-1.amazonaws.com/rbac-service:latest \
-AUTH_MODE=none \
-AUTHORIZE_TEST_MODE=false \
-sls deploy --config serverless.yml --stage dev --region us-east-1
-```
+## AWS components created by compose stacks
 
-## AWS components created by `infrastructure/serverless.yml`
-
-- ECR repository.
-- VPC with public and private subnets.
-- NAT gateway and routing.
-- ECS Fargate cluster, task definition, and service.
-- Internal ALB + target group.
-- API Gateway HTTP API + VPC Link to ALB.
+- VPC networking resources and security groups.
+- DynamoDB table (`rbac-dev`).
+- ECR repository (`rbac-dev-service`).
+- Internal ALB + listener + target group.
+- ECS Fargate cluster, task definition, service, autoscaling.
+- API Gateway HTTP API + VPC Link to ALB listener.
 - ECS target tracking autoscaling (`min=1`, `max=3`, `CPU=60%`).
 - X-Ray sidecar daemon container in ECS task.
 
@@ -131,7 +130,10 @@ make test
 
 ```bash
 export API_URL=<http_api_endpoint>
+export BASE_PATH=/dev
 export API_KEY=<optional_api_key>
 export JWT=<optional_jwt>
 ./smoke-ecs.sh
 ```
+
+Detailed guide: `/Users/erickeduardogomezjimenez/projects/rbac-project/smoke.md`.
