@@ -35,15 +35,14 @@ request() {
   local path=$2
   local body=${3:-}
   local full_url="${API_URL}${BASE_PATH}${path}"
-  if [[ -n "$body" ]]; then
-    curl -sS -X "$method" "$full_url" \
-      "${headers[@]}" \
-      -H "Content-Type: application/json" \
-      -d "$body"
-  else
-    curl -sS -X "$method" "$full_url" \
-      "${headers[@]}"
+  local -a cmd=(curl -sS -X "$method" "$full_url")
+  if ((${#headers[@]} > 0)); then
+    cmd+=("${headers[@]}")
   fi
+  if [[ -n "$body" ]]; then
+    cmd+=(-H "Content-Type: application/json" -d "$body")
+  fi
+  "${cmd[@]}"
 }
 
 echo "1) Health check /health"
